@@ -34,9 +34,6 @@ import { initializeSocketHandlers } from './sockets/index.js';
 // Import cron jobs
 import './cron/feeCalculation.js';
 
-// Connect to MongoDB
-connectDB();
-
 // Initialize Express app
 const app = express();
 const httpServer = createServer(app);
@@ -57,15 +54,15 @@ app.set('io', io);
 initializeSocketHandlers(io);
 
 // Middleware
-app.use(helmet()); // Security headers
+app.use(helmet());
 app.use(cors({
   origin: process.env.CLIENT_URL || 'http://localhost:5173',
   credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-app.use(mongoSanitize()); // Prevent NoSQL injection
-app.use(compression()); // Compress responses
+app.use(mongoSanitize());
+app.use(compression());
 
 // Logging
 if (process.env.NODE_ENV === 'development') {
@@ -107,11 +104,21 @@ if (process.env.NODE_ENV === 'development') {
 app.use(notFound);
 app.use(errorHandler);
 
-// Start server
-const PORT = process.env.PORT || 5000;
-httpServer.listen(PORT, () => {
-  logger.success(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
-});
+const isTestEnv = process.env.NODE_ENV === 'test' || Boolean(process.env.JEST_WORKER_ID);
+
+const startServer = async () => {
+  await connectDB();
+
+  const PORT = process.env.PORT || 5000;
+
+  return httpServer.listen(PORT, () => {
+    logger.success(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+  });
+};
+
+if (!isTestEnv) {
+  startServer();
+}
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
@@ -119,4 +126,5 @@ process.on('unhandledRejection', (err) => {
   httpServer.close(() => process.exit(1));
 });
 
-export { io };
+export { app, httpServer, io, startServer };
+export default app;
