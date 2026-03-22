@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpIcon, ArrowDownIcon, TrendingUpIcon, TrendingDownIcon } from '@heroicons/react/24/outline';
+import { ArrowUpIcon, ArrowDownIcon, ArrowTrendingUpIcon, ArrowTrendingDownIcon } from '@heroicons/react/24/outline';
 import { cn } from '../../utils/cn';
 import { AnimatedCounter } from './AnimatedCounter';
 
-const EnhancedStatsCard = ({
+export const EnhancedStatsCard = ({
   title,
   value,
   icon: Icon,
@@ -78,13 +78,13 @@ const EnhancedStatsCard = ({
             <div className="flex items-center gap-2 mt-3">
               {isPositive && (
                 <div className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-green-500/10 text-green-600 dark:text-green-400">
-                  <TrendingUpIcon className="w-3.5 h-3.5" />
+                  <ArrowTrendingUpIcon className="w-3.5 h-3.5" />
                   <span className="text-xs font-semibold">+{trendValue}%</span>
                 </div>
               )}
               {isNegative && (
                 <div className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-red-500/10 text-red-600 dark:text-red-400">
-                  <TrendingDownIcon className="w-3.5 h-3.5" />
+                  <ArrowTrendingDownIcon className="w-3.5 h-3.5" />
                   <span className="text-xs font-semibold">{trendValue}%</span>
                 </div>
               )}
