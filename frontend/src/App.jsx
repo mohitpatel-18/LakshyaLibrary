@@ -26,6 +26,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import Students from './pages/admin/Students';
 import SeatManagement from './pages/admin/SeatManagement';
 import Admissions from './pages/admin/Admissions';
+import StudentDashboard from './pages/student/StudentDashboard';
 
 // Components
 import ProtectedRoute from './components/ProtectedRoute';

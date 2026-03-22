@@ -1,34 +1,23 @@
 import request from 'supertest';
-import mongoose from 'mongoose';
 import app from '../server.js';
-import User from '../models/User.js';
 
 describe('Authentication Tests', () => {
-  beforeAll(async () => {
-    // Connect to test database
-    await mongoose.connect(process.env.MONGODB_URI_TEST || process.env.MONGODB_URI);
-  });
+  describe('GET /health', () => {
+    it('should return a healthy server response', async () => {
+      const response = await request(app).get('/health');
 
-  afterAll(async () => {
-    // Clean up and close connection
-    await User.deleteMany({});
-    await mongoose.connection.close();
+      expect(response.status).toBe(200);
+      expect(response.body.success).toBe(true);
+      expect(response.body.message).toBe('Server is running');
+      expect(response.body.timestamp).toBeDefined();
+    });
   });
 
   describe('POST /api/auth/login', () => {
-    it('should login with valid credentials', async () => {
-      // This is a placeholder test
-      expect(true).toBe(true);
-    });
+    it('should reject requests without credentials', async () => {
+      const response = await request(app).post('/api/auth/login').send({});
 
-    it('should reject invalid credentials', async () => {
-      expect(true).toBe(true);
-    });
-  });
-
-  describe('POST /api/auth/verify-otp', () => {
-    it('should verify valid OTP', async () => {
-      expect(true).toBe(true);
+      expect(response.status).toBeGreaterThanOrEqual(400);
     });
   });
 });

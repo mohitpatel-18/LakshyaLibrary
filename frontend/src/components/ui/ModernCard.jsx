@@ -14,8 +14,7 @@ const ModernCard = ({
 }) => {
   const variants = {
     default: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700',
-    glass: 'glass-card',
-      'bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl border border-white/10 dark:border-gray-700/30',
+    glass: 'glass-card bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl border border-white/10 dark:border-gray-700/30',
     gradient: 'bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-200 dark:border-blue-800',
     elevated: 'bg-white dark:bg-gray-800 shadow-hard',
   };
