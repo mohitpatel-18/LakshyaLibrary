@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import {
   ChartBarIcon,
   SparklesIcon,
-  TrendingUpIcon,
-  TrendingDownIcon,
+  ArrowTrendingUpIcon,
+  ArrowTrendingDownIcon,
   LightBulbIcon,
   ExclamationTriangleIcon,
 } from '@heroicons/react/24/outline';
@@ -21,7 +21,7 @@ const AIAnalytics = () => {
     {
       id: 1,
       type: 'prediction',
-      icon: TrendingUpIcon,
+      icon: ArrowTrendingUpIcon,
       color: 'blue',
       title: 'Revenue Forecast',
       description: 'Expected 15% increase in revenue next month based on enrollment trends',
@@ -51,7 +51,7 @@ const AIAnalytics = () => {
     {
       id: 4,
       type: 'trend',
-      icon: TrendingDownIcon,
+      icon: ArrowTrendingDownIcon,
       color: 'red',
       title: 'Payment Delays',
       description: 'Average payment delay increased by 3 days this month',
@@ -156,9 +156,9 @@ const AIAnalytics = () => {
                       metric.trend === 'up' ? 'text-green-600' : 'text-red-600'
                     }`}>
                       {metric.trend === 'up' ? (
-                        <TrendingUpIcon className="w-4 h-4" />
+                        <ArrowTrendingUpIcon className="w-4 h-4" />
                       ) : (
-                        <TrendingDownIcon className="w-4 h-4" />
+                        <ArrowTrendingDownIcon className="w-4 h-4" />
                       )}
                       <span className="text-sm font-semibold">{metric.trendValue}%</span>
                     </div>
